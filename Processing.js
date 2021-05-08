@@ -57,7 +57,7 @@ export function parseCSV(fileName){
 return fetchCSV(fileName).then((text)=>{
     let columns = getColumnsIndex(text.split("\n")[0].split(","));
     return( populateVenues(text.split("\n"),columns));
-
+    //A
 });
 
 
