@@ -14,5 +14,8 @@ export class venue {
         this.reviews = reviews
     }
 
+     toString  = () => {
+        return this.id + ' '+ this.category + ' ' + this.subCategory + ' '+ this.name + '\n';
+    }
+
 }
-//

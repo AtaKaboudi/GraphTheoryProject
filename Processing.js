@@ -1,10 +1,8 @@
 import {venue} from './venue.js';
 
 const basePath = '../assets/csv'
- export var venuesList = [];
 
 function  fetchCSV (path){
-
     return fetch (basePath + path)
         .then(res => res.text())
         .then((text)=>{
@@ -12,8 +10,6 @@ function  fetchCSV (path){
         })
         .catch(error=>console.log(error));
 }
-
-
 
 function getColumnsIndex (columns){
     return [columns.indexOf("id")
@@ -31,6 +27,7 @@ function getColumnsIndex (columns){
 ]    
 }
 function populateVenues(textArray,columns){
+    let venuesList = [];
     textArray.shift();
     textArray.forEach(element => {
     let params = element.split(",");
@@ -57,7 +54,6 @@ export function parseCSV(fileName){
 return fetchCSV(fileName).then((text)=>{
     let columns = getColumnsIndex(text.split("\n")[0].split(","));
     return( populateVenues(text.split("\n"),columns));
-    //A
 });
 
 
