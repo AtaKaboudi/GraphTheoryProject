@@ -1,0 +1,22 @@
+{
+  "name": "graphtheoryproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Processing.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtaKaboudi/GraphTheoryProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtaKaboudi/GraphTheoryProject/issues"
+  },
+  "homepage": "https://github.com/AtaKaboudi/GraphTheoryProject#readme",
+  "dependencies": {
+    "fs": "0.0.1-security"
+  }
+}
