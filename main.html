@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Guide</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <link rel="stylesheet" href="style.css">
+    <div id="navbar">
+        <h1 id = "title">GUIDE</h1>
+        <ul class= "list">
+            <li><a href="">About Us</a></li>
+            <li><a href="">Feedback</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </div>
+    <div id= "presentation">
+        <div class="descriptor">
+            <label>A Faster, Relient, Free platform <br> </label>
+            <label class="subDescriptor"> to fully enjoy a trip to Paris</label>
+        </div>
+        <div id="grah">
+            <img style ="margin:2vh  ;width:65vh" src= "venuesAPI/assets/graph.png">
+        </div>
+    </div>
+
+    <div class="infoWrapper">
+        <div class="info">
+            <h1>43,500</h1>
+            <label>Venues</label>
+        </div>
+        <div class="info">
+            <h1>23,400</h1>
+            <label>Tourist</label>
+        </div>
+        <div class="info">
+            <h1>235K</h1>
+            <label>Reviews</label>
+        </div>
+        <div class="info">
+            <h1>1</h1>
+            <label>Website</label>
+        </div>
+    </div>
+    
+
+    <div id="main">
+        <div id="filter">
+            <button>Restaurant</button>
+            <button>POI</button>
+            <button>Acoomodation</button>
+            <button>Attraction</button>
+
+        </div>
+        <div id="venuesContainer"></div>
+        <venue-button name ="a"></venue-button>
+        <venue-button></venue-button>
+        <venue-button></venue-button>
+        <venue-button></venue-button>
+        <venue-button></venue-button>
+
+        </div>
+</body>
+<script type ="module"src="mainController.js"></script>
+</html>

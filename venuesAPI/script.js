@@ -1,28 +1,28 @@
 import {populateVenues, venuesList} from './Processing.js'
 var output = document.getElementById('output')
 
-// wait to  populate venues in List 
+// wait to  populate venues in List
  function switchIndex(category){
     let index ;
     switch(category){
         case "restaurant":
             index = 3 ;
-            break; 
+            break;
         case "poi":
             index = 2 ;
-            break; 
+            break;
         case "attraction":
             index = 1 ;
-            break; 
+            break;
         case "accommodation":
             index = 0 ;
             break;
         }
         return index ;
  }
-export const venueAPI = {
-    populateVenues(){
-        populateVenues().then(()=>console.log("a"));
+ const  venueAPI = {
+     populateVenues(){
+        populateVenues().then(()=> {console.log("seeded Venues");});
     }
     ,
     getrandom(category,limit)  {
@@ -52,4 +52,6 @@ export const venueAPI = {
 }
 
 venueAPI.populateVenues();
-setTimeout(()=> {console.log(venueAPI.getName("restaurant","italien"))},3000);
+setTimeout(()=> {console.log(venueAPI.getName("poi","bar"))},3000);
+
+export default venueAPI ;
