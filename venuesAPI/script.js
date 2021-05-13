@@ -25,14 +25,23 @@ import {populateVenues, venuesList} from './Processing.js'
         setTimeout(()=> {console.log("length VenuesList: "+ venuesList.length)},3000);
     }
     ,
-    getRandom : function(category,limit)  {
-        let index  = switchIndex(category) ;
-        if(!index) return ["Wrong category"]
+    getRandom : function(limit)  {
         let result = [];
         for( let i= 0 ; i < limit ;i++){
-            result = result.concat(venuesList[index][Math.floor(Math.random()*2000)]);
+            let index =Math.floor(Math.random()*2);
+            result = result.concat(venuesList[index][Math.floor(Math.random()*1000)]);
         }
         return result
+    }
+    ,
+    getRandomCategory : function(category,limit){
+        let index  = switchIndex(category) ;
+        let result = [];
+        for( let i= 0 ; i < limit ;i++){
+            result = result.concat(venuesList[index][Math.floor(Math.random()*1000)]);
+        }
+        return result
+
     }
     ,
     getName(category,keyWord){

@@ -7,6 +7,8 @@
     <title>Tourist Guide</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 <body>
     <div id="navbar">
@@ -48,17 +50,42 @@
     
 
     <div id="main">
-        <div class="div" id="venuewrapper">
-            <div id="filter">
-                <button>Restaurant</button>
-                <button>POI</button>
-                <button>Acoomodation</button>
-                <button>Attraction</button>
+        <div id= "filterWrapper">
+            <div >
+                <button value="restaurant" id="filterbtn" >restaurant
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
+                <button  value="poi" id="filterbtn" >poi
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
+                <button value="attraction" id="filterbtn">attractions
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
+                <button value="accommodation" id="filterbtn">accomodation
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
             </div>
+            <div id="searchWrapper">
+                <input type="text" placeholder="Search...">
+                <div class="search"></div>
+            </div>
+        </div>
 
-        <div id="venuesContainer">
+        <div class="div" id="venuewrapper">
+            <div id="venuesContainer">
+                <div class="headers">
+                    <h3>Name</h3>
+                    <h3>Address</h3>
+                    <h3>Category</h3>
+                    <h3>Lng</h3>
+                    <h3>lat</h3>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div id= "cartWrapper">
+       <h1 id= "cartTitle"> Confirm POI </h1>
     </div>
 </body>
 <script type ="module"src="mainController.js"></script>
