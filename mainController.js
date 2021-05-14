@@ -6,19 +6,35 @@ var cart =  [];
 
 venueAPI.populateVenues();
 setTimeout(() => {
-
     var venuesLot = venueAPI.getRandom(10);
         displayVenuesBtn(venuesLot)
-           // add event listners to add venue to final list when clicked
+        // add event listners to add venue to final list when clicked
         addClickedBtnToCartEvent("#venueButton",venuesLot)
-     // add event listners to filter buttons parmas{id filterbtn and venuebtn}
+        // add event listners to filter buttons parmas{id filterbtn and venuebtn}
         addFilterEvent()
+        //Add eventListners to search and Confirm Cart
+        let input = document.querySelector('#searchInput');
+        input.addEventListener('keyup',(event)=>{
+          if(event.keyCode ==13){
+            searchVenues(input.value);
+          }
+        });
+        let confirmBtn = document.querySelector('#confirmbtn');
+        confirmBtn.onclick = function (){
+          solvePath();
+        }
 
-    
-
-
-    
   },3000)
+
+function searchVenues(key){
+  let venuesList= venueAPI.getName(key);
+  if(venuesList.length == 0) venuesList= ["1,NO MATCHES FOUND"]
+  console.log(venuesList);
+  let venuesBtn = document.querySelectorAll('#venueButton');
+  removeBtn("#venueButton")
+  displayVenuesBtn(venuesList);
+  addClickedBtnToCartEvent("#venueButton",venuesList);
+}
 
 function validateClickedVenues(){
   var container = document.getElementById('cartWrapper')
@@ -42,16 +58,18 @@ function addClickedBtnToCartEvent(btnDOMId,venuesLot){
    })
   })
 }
+function removeBtn(btnId){
+   var btnList =document.querySelectorAll(btnId);
+   btnList.forEach(venuebtn =>{
+      venuebtn.remove();
+    })
+}
 
 function addFilterEvent(){
   var filterList = document.querySelectorAll('#filterbtn')
   filterList.forEach(element=>{
      element.onclick = function(){
-       //remove current buttons
-      var btnList =document.querySelectorAll("#venueButton");
-      btnList.forEach(venuebtn =>{
-         venuebtn.remove();
-       })
+        removeBtn('#venueButton');
        let category = element.getAttribute('value');
        let venuesLot = venueAPI.getRandomCategory(category,10);
        displayVenuesBtn(venuesLot); 
@@ -60,6 +78,9 @@ function addFilterEvent(){
   })
 }
   
+function solvePath(){
+  alert('a');
+}
 
 
 

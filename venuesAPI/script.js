@@ -44,17 +44,16 @@ import {populateVenues, venuesList} from './Processing.js'
 
     }
     ,
-    getName(category,keyWord){
+    getName(keyWord){
         let result = []
-        let index  = switchIndex(category) ;
-        if ((!index) || (!keyWord)) return ["Wrong Arguments"]
-
-        for(let v of venuesList[index]){
+        venuesList.forEach(element=>{
+        for(let v of element){
            let name = v.split(",")[1];
             if(name.includes(" " +keyWord+ " ")){
                 result = result.concat(v);
             }
         }
+    })
         return result;
     }
 
