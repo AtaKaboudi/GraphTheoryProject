@@ -1,57 +1,29 @@
 import PriorityQueue from './priorityQueue.js'
-var arr= [['a',1,2],['b',2,3],['c',4,5],['d',1,9],['e',7,2],['f',2,8]];
-
-class Node {
-    neighbours = []
-    constructor (id){
-        this.id = id
-    }
-    addNeighbour(node,weight){
-        this.neighbours.push({node : node,weight : weight});
-    }
+import Graph from './Graph.js'
+import Node from './Node.js'
+export default function solve (input){
+   return generateGraph(input)
 }
-class Graph {
-    constructor () {
-        this.nodes = [];
-    }
-    addNodes (nodesList){
-        nodesList.forEach(element => {
-            this.nodes.push(element);
-        });
-    }
-    contains(node){
-        return this.nodes.includes(node);
-    }
-    getDistance(nodeA,nodeB){
-        let indexA = this.nodes.indexOf(nodeA);
-        let indexB = this.nodes.indexOf(nodeB);
-        let resultANode ;
-        let resultBNode;
-         this.nodes[indexA].neighbours.forEach( neighbour => {
-             if( Object.is(neighbour.node,nodeB)) {
-                resultANode =  neighbour.weight;
+let graph = new Graph();
+
+function generateGraph(params){
+    let nodes = [];
+    params.forEach(element =>{
+        nodes.push(new Node(element.id))
+    })
+    nodes.forEach((element,i) =>{
+            nodes.forEach((element2,j) =>{
+                if(i != j){
+                element.addNeighbour(element2,solveWeight(params[i],params[j]));
                 }
-         })
-         this.nodes[indexB].neighbours.forEach( neighbour => {
-            if( Object.is(neighbour.node,nodeA)) {
-               resultBNode =  neighbour.weight;
-               }
-        })
-        return resultANode || resultBNode
-    }
-    display(){
-        this.nodes.forEach( node => {
-            let string = '';
-            string += node.id +' : ';
-            node.neighbours.forEach(neighbour => {
-                string += neighbour.node.id + ' ';
             })
-            console.log(string)
-        })
-    }
+    })
+   graph.addNodes(nodes);
+   //START NODE OF INDEX 0
+return diskastra(nodes[0]);
 }
 
-
+/*
 var SF = new Node ('SF');
 var Seattle = new Node('Seattle');
 var Idaho = new Node('Idaho');
@@ -72,18 +44,20 @@ Idaho.addNeighbour(NYC,6);
 NYC.addNeighbour(Chicago,4);
 NYC.addNeighbour(Idaho,6)
 graph.addNodes([SF,Seattle,Chicago,Idaho,NYC])
+console.log(diskastra(SF));
+*/
 
-function algo (sf){
+function diskastra (startNode){
     let totalPath = [];
     let prevNode  = [];
     let visited = [];
     let minPq = new PriorityQueue;
 
-    totalPath[SF.id]= 0;
-    visited.push(SF);
-    minPq.enqueue(SF,1);
+    totalPath[startNode.id]= 0;
+    visited.push(startNode);
+    minPq.enqueue(startNode,1);
         graph.nodes.forEach(element =>{
-            if(element != SF){
+            if(element != startNode){
             totalPath[element.id]= Infinity;
             }
         })
@@ -101,55 +75,65 @@ function algo (sf){
                         minPq.updatePriority(neighbour.node,altPath);
                     }
                 }
-
             })
             
            }
            let result = [];
-           graph.nodes.forEach(node =>{
-               if (node != SF) {
-            let obj = { id :node.id , prev :prevNode[node.id].id , weight: totalPath[node.id]};
+           graph.nodes.forEach(node =>{ 
+               if (node != startNode) {
+            let obj = { node :node , prevNode :prevNode[node.id]  };
                 result.push(obj);
          }
         })
-        console.log(result);
-        return renderResult(result,SF);
+        return renderResult(result,startNode);
     }
 
-console.log(algo());
 
     function renderResult(res,startNode){
-   
-    }
-    function getNextIndex(result,current){
-        let i =-1
-        result.forEach((element,index) =>{
-            if(element.prev == current.id){
-                i = index;
-            }
-        })
-        return i ;
-    }
+        let nodes = [];
+        res.forEach(element =>{
+            let a = new Node(element.node.id);
+            let b  = new Node(element.prevNode.id)
+            let indexA = exists(nodes,a);
+            let indexB = exists(nodes,b)
+            if(indexA < 0){
+                nodes.push(a)
+                indexA= nodes.length-1;
+            }  
+            if(indexB < 0){
+                nodes.push(b);
+                indexB= nodes.length-1;
+            }     
 
-function generateGraph(params){
-    for(let i = 0 ; i<params.length-1; i++) {
-        for(let j= i+1 ; j< params.length ;j++){
-            graph.addNode(i);
-            graph.addEdge(i,j,solveWeight(params[i],params[j]));
+        let distance = graph.getDistance(element.node,element.prevNode);
+            nodes[indexA].addNeighbour(nodes[indexB],distance);
+            nodes[indexB].addNeighbour(nodes[indexA],distance);
+
+    })
+    let aux = new Graph();
+    aux.addNodes(nodes);
+    return aux;
+   }
+
+    function exists(nodes,node){
+        let found = -1 ;
+        for(let i = 0 ; i< nodes.length; i++){
+            if( Object.is(nodes[i].id, node.id)){
+                found = i;
+                break;
+            }
         }
+    return found;
     }
-}
+  
+
 function solveWeight(a,b){
     //returns the  cartesian distance ebetween the coordinates 
-    let squarred1= (Math.pow(Math.abs(a[1]-b[1]),2))
-    let squarred2= (Math.pow(Math.abs(a[2]-b[2]),2))
+    let squarred1= (Math.pow(Math.abs(a.long-b.long),2))
+    let squarred2= (Math.pow(Math.abs(a.lat-b.lat),2))
     return Math.sqrt(squarred1+squarred2)
 }
 
-function solvePath(graph){
-    console.log(graph.djikstraAlgorithm(1));
-
-}
 
 
 

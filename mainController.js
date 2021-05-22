@@ -2,6 +2,7 @@ const venuesContainer = document.getElementById('venuesContainer')
 import {displayVenueButton} from '/venueButtonComponent.js'
 import venueAPI from './venuesAPI/script.js'
 import { displayCart } from './venueCartComponent.js';
+import solve from './graphSolution/solve.js'
 var cart =  [];
 
 venueAPI.populateVenues();
@@ -38,7 +39,7 @@ function searchVenues(key){
 
 function validateClickedVenues(){
   var container = document.getElementById('cartWrapper')
-    let params = cart.pop().split(",")
+    let params = cart[cart.length-1].split(",")
     displayCart(container,params[1],params[2]);
 }
 
@@ -77,9 +78,28 @@ function addFilterEvent(){
       }
   })
 }
-  
+  cart =[ "232605,\"Hoteliere ANOU 1\",\"00094 Rue des Archives, Paris, France\",accommodation,Paris,48.863463,2.360867,http://tour-pedia.org/api/getPlaceDetails?id=232605,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=232605\r"
+,"85829,\"Ambassade de Belgique\",\"9 Rue de Tilsitt, Paris, France\",poi,Paris,48.875089,2.2944,http://tour-pedia.org/api/getPlaceDetails?id=85829,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=85829\r"
+,"91135,\"Woh Marie-Laurent\",\"205 Rue de Tolbiac, Paris, France\",poi,Paris,48.825619,2.348464,http://tour-pedia.org/api/getPlaceDetails?id=91135,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=91135\r"
+]
+solvePath();
 function solvePath(){
-  alert('a');
+  //FORMAT INPUT FRO SOLVE.JS
+  let input = [];
+  cart.forEach((element,index) =>{
+    input.push({id:index , lat : element.split(",")[7], long : element.split(",")[8]});
+  })
+ let result = solve(input);
+  displayGraph(result)  ;
+}
+
+function displayGraph(graph){
+  let canvas = document.getElementById("myCanva");
+  let ctx = canvas.getContext("2d")
+  ctx.beginPath();
+  ctx.arc(100,100,30,0,180,false);
+  ctx.strokeStylr ="black"
+  ctx.fill();
 }
 
 
