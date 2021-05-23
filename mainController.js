@@ -40,7 +40,7 @@ function searchVenues(key){
 function validateClickedVenues(){
   var container = document.getElementById('cartWrapper')
     let params = cart[cart.length-1].split(",")
-    displayCart(container,params[1],params[2]);
+    displayCart(container,params[1],params[2],cart.length);
 }
 
 function displayVenuesBtn(venuesLot){
@@ -78,11 +78,10 @@ function addFilterEvent(){
       }
   })
 }
-  cart =[ "232605,\"Hoteliere ANOU 1\",\"00094 Rue des Archives, Paris, France\",accommodation,Paris,48.863463,2.360867,http://tour-pedia.org/api/getPlaceDetails?id=232605,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=232605\r"
-,"85829,\"Ambassade de Belgique\",\"9 Rue de Tilsitt, Paris, France\",poi,Paris,48.875089,2.2944,http://tour-pedia.org/api/getPlaceDetails?id=85829,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=85829\r"
-,"91135,\"Woh Marie-Laurent\",\"205 Rue de Tolbiac, Paris, France\",poi,Paris,48.825619,2.348464,http://tour-pedia.org/api/getPlaceDetails?id=91135,http://tour-pedia.org/api/getReviewsByPlaceId?placeId=91135\r"
-]
-solvePath();
+
+
+
+
 function solvePath(){
   //FORMAT INPUT FRO SOLVE.JS
   let input = [];
@@ -90,17 +89,50 @@ function solvePath(){
     input.push({id:index , lat : element.split(",")[7], long : element.split(",")[8]});
   })
  let result = solve(input);
+ console.log(result);
   displayGraph(result)  ;
 }
 
 function displayGraph(graph){
-  let canvas = document.getElementById("myCanva");
-  let ctx = canvas.getContext("2d")
-  ctx.beginPath();
-  ctx.arc(100,100,30,0,180,false);
-  ctx.strokeStylr ="black"
-  ctx.fill();
+  let nodes = [];
+  let edges =[];
+  graph.nodes.forEach(element =>{
+    console.log(element.id);
+    nodes.push({id : element.id , label : element.id.toString()})
+  })  
+  graph.nodes.forEach(element =>{
+    element.neighbours.forEach(neighbour =>{
+      edges.push({from : element.id , to : neighbour.node.id})
+    })
+  })
+
+
+
+  // create a network
+  var container = document.getElementById("myCanva");
+  var data = {
+    nodes: nodes,
+    edges: edges,
+  };
+  var options = {
+    height: '100%',
+    width : '100%',
+    nodes: {
+      shape : 'circle',
+      color: {
+        border: 'black',
+        background :'#122c34'
+      },
+      font : {
+        color :'white',
+        size : 20,
+      },
+      size : 10,
+    },
+  };
+  var network = new vis.Network(container, data, options);
 }
+
 
 
 
