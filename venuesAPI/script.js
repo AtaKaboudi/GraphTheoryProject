@@ -1,63 +1,63 @@
-import {populateVenues, venuesList} from './Processing.js'
+import { populateVenues, venuesList } from './Processing.js'
 
 // wait to  populate venues in List
- function switchIndex(category){
-    let index ;
-    switch(category){
+function switchIndex(category) {
+    let index;
+    switch (category) {
         case "restaurant":
-            index = 3 ;
+            index = 3;
             break;
         case "poi":
-            index = 2 ;
+            index = 2;
             break;
         case "attraction":
-            index = 1 ;
+            index = 1;
             break;
         case "accommodation":
-            index = 0 ;
+            index = 0;
             break;
-        }
-        return index ;
- }
- const  venueAPI = {
-     populateVenues(){
-        populateVenues().then(()=> {console.log("seeded Venues");});
-        setTimeout(()=> {console.log("length VenuesList: "+ venuesList.length)},3000);
+    }
+    return index;
+}
+const venueAPI = {
+    populateVenues() {
+        populateVenues().then(() => { console.log("seeded Venues"); });
+        setTimeout(() => { console.log("length VenuesList: " + venuesList[3].length) }, 3000);
     }
     ,
-    getRandom : function(limit)  {
+    getRandom: function (limit) {
         let result = [];
-        for( let i= 0 ; i < limit ;i++){
-            let index =Math.floor(Math.random()*2);
-            result = result.concat(venuesList[index][Math.floor(Math.random()*1000)]);
+        for (let i = 0; i < limit; i++) {
+            let index = Math.floor(Math.random() * 2);
+            result = result.concat(venuesList[index][Math.floor(Math.random() * 1000)]);
         }
         return result
     }
     ,
-    getRandomCategory : function(category,limit){
-        let index  = switchIndex(category) ;
+    getRandomCategory: function (category, limit) {
+        let index = switchIndex(category);
         let result = [];
-        for( let i= 0 ; i < limit ;i++){
-            result = result.concat(venuesList[index][Math.floor(Math.random()*1000)]);
+        for (let i = 0; i < limit; i++) {
+            result = result.concat(venuesList[index][Math.floor(Math.random() * 1000)]);
         }
         return result
 
     }
     ,
-    getName(keyWord){
+    getName(keyWord) {
         let result = []
-        venuesList.forEach(element=>{
-        for(let v of element){
-           let name = v.split(",")[1];
-            if(name.includes(" " +keyWord+ " ")){
-                result = result.concat(v);
+        venuesList.forEach(element => {
+            for (let v of element) {
+                let name = v.split(",")[1];
+                if (name.includes(" " + keyWord + " ")) {
+                    result = result.concat(v);
+                }
             }
-        }
-    })
+        })
         return result;
     }
 
 }
 
 
-export default venueAPI ;
+export default venueAPI;
